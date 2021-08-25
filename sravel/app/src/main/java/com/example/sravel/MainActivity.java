@@ -115,6 +115,300 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Button button_food = findViewById(R.id.button_food);
+        Button button_city = findViewById(R.id.button_city);
+        Button button_sky = findViewById(R.id.button_sky);
+        Button button_place = findViewById(R.id.button_place);
+        Button button_ocean = findViewById(R.id.button_ocean);
+        Button button_animal = findViewById(R.id.button_animal);
+
+        //바다 카테고리
+        button_ocean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "바다")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+        //하늘 카테고리
+        button_sky.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "하늘")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+        //동물 카테고리
+        button_animal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "동물")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+        //음식 카테고리
+        button_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "음식")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+        //동물 카테고리
+        button_animal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "동물")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+        //도시 카테고리
+        button_city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "도시")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+        //명소 카테고리
+        button_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                db.collection("snapshots")
+                        .whereEqualTo("hashtag", "명소")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                        MarkerOptions mOptions = new MarkerOptions();
+                                        mOptions.title(snapShotDTO.title);
+
+                                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.apple);
+                                        Bitmap b = bitmapdraw.getBitmap();
+                                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+                                        mOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                                        Double latitude = snapShotDTO.latitude; //위도
+                                        Double longitude = snapShotDTO.longitude; //경도
+
+                                        //간단한 텍스트
+                                        mOptions.snippet(snapShotDTO.description);
+
+                                        mOptions.position(new LatLng(latitude, longitude));
+                                        mMap.addMarker(mOptions);
+
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
+
+
         button_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,12 +484,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMarkerClickListener(this);
 
         LatLng SEOUL = new LatLng(37.56, 126.97);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
-        mMap.addMarker(markerOptions);
 
         //모든 마커 찍기
         db.collection("snapshots")
