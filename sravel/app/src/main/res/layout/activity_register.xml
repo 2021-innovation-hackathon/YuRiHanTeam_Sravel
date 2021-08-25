@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Register">
+
+
+    <TextView
+        android:id="@+id/textView_signup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="100dp"
+        android:text="회원가입"
+        android:textColor="@color/main_dark_blue"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/main_dark_blue" />
+
+    <EditText
+        android:id="@+id/editText_email_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="이메일 주소"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/main_dark_blue"
+        android:textColorHint="@color/main_dark_blue" />
+
+
+    <EditText
+        android:id="@+id/editText_password_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textColor="@color/main_dark_blue"
+        android:textColorHint="@color/main_dark_blue" />
+
+    <EditText
+        android:id="@+id/editText_passwordCheck_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:textColor="@color/main_dark_blue"
+        android:textColorHint="@color/main_dark_blue" />
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/main_dark_blue"
+        android:text="회원가입"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
