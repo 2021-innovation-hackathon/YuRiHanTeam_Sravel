@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -46,6 +48,9 @@ public class PostItems extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
+
+        Button button_popular = findViewById(R.id.button_popular);
+        Button button_recent = findViewById(R.id.button_recent);
 
         PostItemAdapter adapter = new PostItemAdapter(list);
         db = FirebaseFirestore.getInstance();
@@ -98,9 +103,9 @@ public class PostItems extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
-                                    if(snapShotDTO.mytripCheck.containsKey(uid)){
+                                    if (snapShotDTO.mytripCheck.containsKey(uid)) {
                                         list.add(snapShotDTO);
-                                    }else{
+                                    } else {
                                         continue;
                                     }
 
@@ -112,8 +117,44 @@ public class PostItems extends AppCompatActivity {
                             }
                         }
                     });
-        }else if(category.equals("popular")){
-
+        } else if (category.equals("popular")) {
+            db.collection("snapshots")
+                    .orderBy("heartCount", Query.Direction.DESCENDING)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                    list.add(snapShotDTO);
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        } else {
+            db.collection("snapshots")
+                    .orderBy("time",  Query.Direction.DESCENDING)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                    list.add(snapShotDTO);
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -134,6 +175,25 @@ public class PostItems extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        button_popular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PostItems.class);
+                intent.putExtra("category", "popular");
+                startActivity(intent);
+            }
+        });
+
+        button_recent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PostItems.class);
+                intent.putExtra("category", "recent");
+                startActivity(intent);
+            }
+        });
+
 
     }
 }
