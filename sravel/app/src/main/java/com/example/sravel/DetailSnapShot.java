@@ -2,6 +2,8 @@ package com.example.sravel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,8 +34,11 @@ import com.google.firebase.firestore.Transaction;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +57,9 @@ public class DetailSnapShot extends AppCompatActivity {
     private String imageName;
     FirebaseUser user;
     private FirebaseAuth mAuth;
+    public String[] similarIdSet;
+    Timer timer;
+    TimerTask timerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +88,100 @@ public class DetailSnapShot extends AppCompatActivity {
 
         //모델 연결
         setRetrofitInit();
-        callImageList();
 
         Intent intent = getIntent();
         Double latitude = intent.getExtras().getDouble("latitude");
         Double longitude = intent.getExtras().getDouble("longitude");
         id = "";
+
+        ArrayList<SnapShotDTO> list = new ArrayList<>();
+        PostItemAdapter adapter = new PostItemAdapter(list);
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                for (int i = 1; i < similarIdSet.length; i++) {
+                    db.collection("snapshots")
+                            .whereEqualTo("id", similarIdSet[i])
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                            list.add(snapShotDTO);
+                                            Log.d(TAG, document.getId() + " => " + document.getData());
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+                }
+            }
+        };
+
+        db.collection("snapshots")
+                .whereEqualTo("latitude", latitude)
+                .whereEqualTo("longitude", longitude)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                String time = snapShotDTO.time;
+                                Glide.with(getApplicationContext()).load(snapShotDTO.imageUrl).into(imageView);
+                                textView_title.setText(snapShotDTO.title);
+                                textView_time.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
+                                textView_location.setText(snapShotDTO.location);
+                                textView_hashtag.setText("#" + snapShotDTO.hashtag);
+                                textView_description.setText(snapShotDTO.description);
+                                id = snapShotDTO.id;
+                                imageName = id + ".jpg";
+                                Log.d(TAG, id);
+                                callImageList();
+
+                                if (snapShotDTO.heartCheck.containsKey(uid)) {
+                                    heartButton.setImageResource(R.drawable.fullheart);
+                                } else {
+                                    heartButton.setImageResource(R.drawable.heart);
+                                }
+
+                                if (snapShotDTO.mytripCheck.containsKey(uid)) {
+                                    mytripButton.setImageResource(R.drawable.fullheart);
+                                } else {
+                                    mytripButton.setImageResource(R.drawable.heart);
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_similar);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClicklistener(new PostItemAdapter.OnPostItemClickListener() {
+            @Override
+            public void onItemClick(PostItemAdapter.ViewHolder holder, View view, int position) {
+                SnapShotDTO item = adapter.getItem(position);
+
+                Intent intent = new Intent(getApplicationContext(), DetailSnapShot.class);
+                intent.putExtra("latitude", item.latitude);
+                intent.putExtra("longitude", item.longitude);
+                startActivity(intent);
+            }
+        });
 
         mytripButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,46 +273,8 @@ public class DetailSnapShot extends AppCompatActivity {
                                 Log.w(TAG, "Transaction failure.", e);
                             }
                         });
-
             }
         });
-
-        db.collection("snapshots")
-                .whereEqualTo("latitude", latitude)
-                .whereEqualTo("longitude", longitude)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
-                                String time = snapShotDTO.time;
-                                Glide.with(getApplicationContext()).load(snapShotDTO.imageUrl).into(imageView);
-                                textView_title.setText(snapShotDTO.title);
-                                textView_time.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
-                                textView_location.setText(snapShotDTO.location);
-                                textView_hashtag.setText("#" + snapShotDTO.hashtag);
-                                textView_description.setText(snapShotDTO.description);
-                                id = snapShotDTO.id;
-
-                                if (snapShotDTO.heartCheck.containsKey(uid)) {
-                                    heartButton.setImageResource(R.drawable.fullheart);
-                                } else {
-                                    heartButton.setImageResource(R.drawable.heart);
-                                }
-
-                                if (snapShotDTO.mytripCheck.containsKey(uid)) {
-                                    mytripButton.setImageResource(R.drawable.fullheart);
-                                } else {
-                                    mytripButton.setImageResource(R.drawable.heart);
-                                }
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
     }
 
     private void setRetrofitInit() {
@@ -230,8 +288,9 @@ public class DetailSnapShot extends AppCompatActivity {
     }
 
     private void callImageList() {
-        imageName = "6eacd6b0-b258-4966-b6d7-26794f505ff7.jpg";
-        ImageModelPostVO imageModelPostVO = new ImageModelPostVO(imageName);
+        imageName = id + ".jpg";
+        Log.d(TAG, imageName);
+        ImageModelPostVO imageModelPostVO = new ImageModelPostVO("images/"+imageName);
         mCallImageList = mRetrofitAPI.getImageList(imageModelPostVO);
         mCallImageList.enqueue(mRetrofitCallback);
     }
@@ -242,8 +301,10 @@ public class DetailSnapShot extends AppCompatActivity {
             ImageModelVO result = response.body();
             if (result != null) {
                 Log.d(TAG, result.getResult());
+                splitResult(result.getResult());
             } else {
                 Log.d(TAG, "null 뜸");
+                splitResult("{0: 'dfsdf', 'dfsdf.jpg' ,1: 'Y8oGfS958XQvRDQ3BJNY.jpg'}");
             }
         }
 
@@ -252,4 +313,15 @@ public class DetailSnapShot extends AppCompatActivity {
             t.printStackTrace();
         }
     };
+
+    public void splitResult(String result) {
+        similarIdSet = result.split(",");
+        for (int i = 1; i < similarIdSet.length; i++) {
+            int index = similarIdSet[i].indexOf("'");
+            int lastIndex = similarIdSet[i].lastIndexOf("'");
+            similarIdSet[i] = similarIdSet[i].substring(index + 1, lastIndex - 4);
+            Log.d(TAG, similarIdSet[i]);
+        }
+        timer.schedule(timerTask, 2000);
+    }
 }

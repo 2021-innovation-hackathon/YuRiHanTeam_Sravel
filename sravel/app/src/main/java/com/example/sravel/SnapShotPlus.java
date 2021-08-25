@@ -72,6 +72,7 @@ public class SnapShotPlus extends AppCompatActivity {
     public final String TAG = "snapshotplusTest";
     FirebaseUser user;
     String uid;
+    private String id;
     private FirebaseAuth mAuth;
 
     @Override
@@ -81,7 +82,7 @@ public class SnapShotPlus extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-       uid = "";
+        uid = "";
         if (user == null) {
             startActivity(new Intent(SnapShotPlus.this, Login.class));
             return;
@@ -161,7 +162,8 @@ public class SnapShotPlus extends AppCompatActivity {
                 hm.put("testUid", true);
                 Log.d("plusTest", "button" + imageUrl);
                 DocumentReference snapshotRef = db.collection("snapshots").document();
-                SnapShotDTO snapShotDTO = new SnapShotDTO(snapshotRef.getId(), uid, time, location, latitude, longitude, imageUrl, title, description, hashtag, 0, hm,0,hm);
+                SnapShotDTO snapShotDTO = new SnapShotDTO(snapshotRef.getId(), uid, time, location, latitude, longitude, imageUrl, title, description, hashtag, 0, hm, 0, hm);
+                id = snapshotRef.getId();
                 snapshotRef.set(snapShotDTO);
                 uploadS3();
                 startActivity(new Intent(SnapShotPlus.this, MainActivity.class));
@@ -192,14 +194,13 @@ public class SnapShotPlus extends AppCompatActivity {
         TransferNetworkLossHandler.getInstance(this);
 
         String timeStamp = new SimpleDateFormat("HHmmss").format(new Date());
-        String imageFileName = "snavel_" + timeStamp + ".jpg";
+        String imageFileName = id + ".jpg";
 
-        TransferObserver uploadObserver = transferUtility.upload(bucketName, "images/"+imageFileName, tempFile);
+        TransferObserver uploadObserver = transferUtility.upload(bucketName, "images/" + imageFileName, tempFile);
         uploadObserver.setTransferListener(new TransferListener() {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 Log.d(TAG, "onStateChanged: " + id + ", " + state.toString());
-
             }
 
             @Override

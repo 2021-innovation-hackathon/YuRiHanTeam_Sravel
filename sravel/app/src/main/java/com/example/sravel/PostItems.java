@@ -90,8 +90,6 @@ public class PostItems extends AppCompatActivity {
                         }
                     });
         } else if (category.equals("mytrip")) {
-            Map<String, Boolean> hm = new HashMap<>();
-            hm.put(uid, true);
             db.collection("snapshots")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
