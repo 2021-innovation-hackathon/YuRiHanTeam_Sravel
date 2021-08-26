@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.oguzdev:CircularFloatingActionMenu:1.0.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/99cf24a74311e07a996481cf46083a2c/jetified-CircularFloatingActionMenu-1.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/99cf24a74311e07a996481cf46083a2c/jetified-CircularFloatingActionMenu-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/99cf24a74311e07a996481cf46083a2c/jetified-CircularFloatingActionMenu-1.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.oguzdev/CircularFloatingActionMenu/1.0.2/3f6ed2f1ddb9ff295e81f49e0de88d1c76cbe664/CircularFloatingActionMenu-1.0.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.oguzdev/CircularFloatingActionMenu/1.0.2/e795a03932d8a126b5ee29750655c05b216e8575/CircularFloatingActionMenu-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

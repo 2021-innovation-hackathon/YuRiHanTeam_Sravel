@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "660337933714",
+    "project_id": "sravel-f66dd",
+    "storage_bucket": "sravel-f66dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660337933714:android:d6185d96f1f850c9e3154b",
+        "android_client_info": {
+          "package_name": "com.example.sravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660337933714-3ab44u8mdbccgf4igrp4rj5b8gudbc45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sravel",
+            "certificate_hash": "f210d263006bc358c7391410e5fca2bfd45c667d"
+          }
+        },
+        {
+          "client_id": "660337933714-n02ae1atn1osjtvq749tsc61i3q5232c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6omqBYn2HT2tCMSvjw-oiMIqLrn-CZ9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660337933714-n02ae1atn1osjtvq749tsc61i3q5232c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
