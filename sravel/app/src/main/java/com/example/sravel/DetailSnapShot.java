@@ -9,7 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +64,9 @@ public class DetailSnapShot extends AppCompatActivity {
     public String[] similarIdSet;
     Timer timer;
     TimerTask timerTask;
+    Button button_edit;
+    Button button_delete;
+    SnapShotDTO updateDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,40 @@ public class DetailSnapShot extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageview_detail);
         ImageButton heartButton = findViewById(R.id.button_heart);
         ImageButton mytripButton = findViewById(R.id.button_my_trip);
+
+        //수정, 삭제
+        button_edit = findViewById(R.id.button_edit);
+        button_delete = findViewById(R.id.button_delete);
+        button_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailSnapShot.this, SnapShotPlus.class);
+                intent.putExtra("update", updateDto);
+               startActivity(intent);
+            }
+        });
+
+        button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("snapshots").document(id)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+                startActivity(new Intent(DetailSnapShot.this, MainActivity.class));
+
+            }
+        });
 
         //모델 연결
         setRetrofitInit();
@@ -133,12 +174,13 @@ public class DetailSnapShot extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 SnapShotDTO snapShotDTO = document.toObject(SnapShotDTO.class);
+                                updateDto = snapShotDTO;
                                 String time = snapShotDTO.time;
                                 Glide.with(getApplicationContext()).load(snapShotDTO.imageUrl).into(imageView);
                                 textView_title.setText(snapShotDTO.title);
                                 textView_time.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
                                 textView_location.setText(snapShotDTO.location);
-                                textView_hashtag.setText("#" + snapShotDTO.hashtag);
+                                textView_hashtag.setText( snapShotDTO.hashtag + snapShotDTO.hashtag2);
                                 textView_description.setText(snapShotDTO.description);
                                 id = snapShotDTO.id;
                                 imageName = id + ".jpg";
@@ -290,7 +332,7 @@ public class DetailSnapShot extends AppCompatActivity {
     private void callImageList() {
         imageName = id + ".jpg";
         Log.d(TAG, imageName);
-        ImageModelPostVO imageModelPostVO = new ImageModelPostVO("images/"+imageName);
+        ImageModelPostVO imageModelPostVO = new ImageModelPostVO(imageName);
         mCallImageList = mRetrofitAPI.getImageList(imageModelPostVO);
         mCallImageList.enqueue(mRetrofitCallback);
     }

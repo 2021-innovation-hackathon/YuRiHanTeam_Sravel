@@ -35,11 +35,16 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -67,6 +72,7 @@ public class SnapShotPlus extends AppCompatActivity {
     private String description = "";
     private String imageUrl = "";
     private String hashtag = "";
+    private String hashtag2 = "";
     private FirebaseStorage mStorage;
     private FirebaseFirestore db;
     public final String TAG = "snapshotplusTest";
@@ -74,6 +80,8 @@ public class SnapShotPlus extends AppCompatActivity {
     String uid;
     private String id;
     private FirebaseAuth mAuth;
+    SnapShotDTO updateDto;
+    boolean updateCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +97,6 @@ public class SnapShotPlus extends AppCompatActivity {
         } else {
             uid = user.getUid();
         }
-
         Button button_add = findViewById(R.id.button_add);
         Button button_camera = findViewById(R.id.button_camera);
         Button button_gallery = findViewById(R.id.button_gallery);
@@ -97,34 +104,51 @@ public class SnapShotPlus extends AppCompatActivity {
         EditText editText_title = findViewById(R.id.editText_Title);
         EditText editText_description = findViewById(R.id.editText_SimpleDescription);
         EditText editText_location = findViewById(R.id.editText_location);
+        EditText editText_hashtag = findViewById(R.id.editText_hashtag);
+        ImageView imageView = findViewById(R.id.imageView);
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioButton) {
-                    hashtag = "바다";
-                } else if (checkedId == R.id.radioButton2) {
-                    hashtag = "하늘";
-                } else if (checkedId == R.id.radioButton3) {
-                    hashtag = "사람";
-                } else if (checkedId == R.id.radioButton4) {
-                    hashtag = "음식";
-                } else if (checkedId == R.id.radioButton5) {
-                    hashtag = "동물";
-                } else {
-                    hashtag = "명소";
-                }
-            }
-        });
 
-        mStorage = FirebaseStorage.getInstance();
-        db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             latitude = intent.getExtras().getDouble("latitude");
             longitude = intent.getExtras().getDouble("longitude");
             Log.d(TAG, "위도 " + latitude + " 경도" + longitude);
         }
+        if (intent.getExtras().getParcelable("update") != null) {
+            updateCheck = true;
+            updateDto = intent.getExtras().getParcelable("update");
+            longitude = updateDto.longitude;
+            latitude = updateDto.latitude;
+            editText_title.setText(updateDto.title);
+            editText_description.setText(updateDto.description);
+            editText_hashtag.setText(updateDto.hashtag2);
+            imageUrl = updateDto.imageUrl;
+            id = updateDto.id;
+            Glide.with(this).load(imageUrl).into(imageView);
+        }
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioButton) {
+                    hashtag = "#바다";
+                } else if (checkedId == R.id.radioButton2) {
+                    hashtag = "#하늘";
+                } else if (checkedId == R.id.radioButton3) {
+                    hashtag = "#사람";
+                } else if (checkedId == R.id.radioButton4) {
+                    hashtag = "#음식";
+                } else if (checkedId == R.id.radioButton5) {
+                    hashtag = "#동물";
+                } else {
+                    hashtag = "#명소";
+                }
+            }
+        });
+
+        mStorage = FirebaseStorage.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         button_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,11 +186,49 @@ public class SnapShotPlus extends AppCompatActivity {
                 hm.put("testUid", true);
                 Log.d("plusTest", "button" + imageUrl);
                 DocumentReference snapshotRef = db.collection("snapshots").document();
-                SnapShotDTO snapShotDTO = new SnapShotDTO(snapshotRef.getId(), uid, time, location, latitude, longitude, imageUrl, title, description, hashtag, 0, hm, 0, hm);
+                SnapShotDTO snapShotDTO = new SnapShotDTO(snapshotRef.getId(), uid, time, location, latitude, longitude, imageUrl, title, description, hashtag, 0, hm, 0, hm, "#" + hashtag2);
                 id = snapshotRef.getId();
                 snapshotRef.set(snapShotDTO);
                 uploadS3();
                 startActivity(new Intent(SnapShotPlus.this, MainActivity.class));
+            }
+        };
+
+        TimerTask timerTask2 = new TimerTask() {
+            @Override
+            public void run() {
+
+                db.runTransaction(new Transaction.Function<Void>() {
+                    @Override
+                    public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                        DocumentReference snapRef = db.collection("snapshots").document(id);
+                        DocumentSnapshot snapshot = transaction.get(snapRef);
+
+                        transaction.update(snapRef, "latitude", latitude);
+                        transaction.update(snapRef, "longitude", longitude);
+                        transaction.update(snapRef, "imageUrl", imageUrl);
+                        transaction.update(snapRef, "title", title);
+                        transaction.update(snapRef, "description", description);
+                        transaction.update(snapRef, "hashtag", hashtag);
+                        transaction.update(snapRef, "hashtag2", hashtag2);
+
+                        startActivity(new Intent(SnapShotPlus.this, MainActivity.class));
+
+                        // Success
+                        return null;
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Transaction success!");
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Transaction failure.", e);
+                            }
+                        });
             }
         };
 
@@ -176,8 +238,13 @@ public class SnapShotPlus extends AppCompatActivity {
                 title = editText_title.getText().toString();
                 description = editText_description.getText().toString();
                 location = editText_location.getText().toString();
+                hashtag2 = editText_hashtag.getText().toString();
                 Toast.makeText(getApplicationContext(), "여행지가 등록되었습니다.", Toast.LENGTH_LONG).show();
-                timer.schedule(timerTask, 5000);
+                if (updateCheck) {
+                    timer.schedule(timerTask2, 4000);
+                } else {
+                    timer.schedule(timerTask, 5000);
+                }
             }
         });
     }

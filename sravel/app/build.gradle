@@ -53,6 +53,8 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.github.pedroSG94:AutoPermissions:1.0.3'
 
     dependencies {
         compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'

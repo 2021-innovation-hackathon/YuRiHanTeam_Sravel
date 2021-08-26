@@ -176,6 +176,17 @@
         </RadioGroup>
     </HorizontalScrollView>
 
+    <EditText
+        android:id="@+id/editText_hashtag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:textColorHint="@color/main_dark_blue"
+        android:textSize="13dp"
+        android:textColor="@color/main_dark_blue"
+        android:hint="해시태그를 입력하세요." />
+
     <Button
         android:id="@+id/button_add"
         android:layout_width="match_parent"
