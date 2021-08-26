@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 public class Register extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     EditText mEmailText, mPasswordText, mPasswordcheckText, mName;
-    Button mregisterBtn;
+    ImageButton mregisterBtn;
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage mStorage;
     private FirebaseFirestore db;

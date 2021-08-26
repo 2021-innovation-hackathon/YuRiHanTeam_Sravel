@@ -79,8 +79,8 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(PostItemAdapter.ViewHolder holder, int position) {
         SnapShotDTO snapShotDTO = mData.get(position);
-        String text = snapShotDTO.time;
-        holder.textView1.setText(text);
+        String time = snapShotDTO.time;
+        holder.textView1.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
         Glide.with(context).load(snapShotDTO.imageUrl).into(holder.imageView);
 
         Log.d("PostTest", "text");

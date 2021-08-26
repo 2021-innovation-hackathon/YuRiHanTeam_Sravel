@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
-    Button mLoginBtn;
+    ImageButton mLoginBtn;
     TextView mResigettxt;
     EditText mEmailText, mPasswordText;
     private FirebaseAuth firebaseAuth;
@@ -40,6 +41,7 @@ public class Login extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.button_login);
         mEmailText = findViewById(R.id.editText_email);
         mPasswordText = findViewById(R.id.editText_password);
+        mLoginBtn.setImageResource(R.drawable.box_login);
 
         //가입 버튼이 눌리면
         mResigettxt.setOnClickListener(new View.OnClickListener() {

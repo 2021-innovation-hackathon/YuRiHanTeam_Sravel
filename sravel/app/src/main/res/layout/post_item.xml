@@ -9,12 +9,15 @@
         android:id="@+id/imageView_post"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         app:srcCompat="@drawable/imageview_sample" />
 
     <TextView
         android:id="@+id/textView_time_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
+        android:textColor="#606060"
+        android:fontFamily="@font/notosanskr_regular"
+        android:layout_marginLeft="70dp"
         android:text="TextView" />
 </LinearLayout>

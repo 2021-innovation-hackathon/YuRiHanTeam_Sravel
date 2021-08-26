@@ -8,122 +8,184 @@
     android:orientation="vertical"
     tools:context=".SnapShotPlus">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/button_x">
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/textView_now_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="140dp"
+            android:adjustViewBounds="true"
+            android:fontFamily="@font/notosanskr_medium"
+            android:scaleType="fitCenter"
+            android:text="여행지 등록"
+            android:textColor="@color/main_dark_blue"></TextView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_map"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="여행지 등록"
-        android:textColor="@color/main_dark_blue"
-        android:textSize="15dp"
-        android:textStyle="bold">
-
-    </TextView>
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="위치를 입력하세요."
+        android:textColor="#848484"></Button>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="124dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지도"
-            android:textColor="@color/blue"></Button>
+        <ImageButton
+            android:id="@+id/button_camera"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:text="카메라"
+            android:textSize="13dp" />
 
-        <EditText
-            android:id="@+id/editText_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="위치를 입력하세요"
-            android:textColor="@color/main_dark_blue"
-            android:textColorHint="@color/main_dark_blue"
+        <ImageButton
+            android:id="@+id/button_gallery"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/white"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:text="gallery"
             android:textSize="13dp" />
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="카메라"
-            android:textSize="13dp"
-            app:backgroundTint="@color/blue" />
-
-        <Button
-            android:id="@+id/button_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="gallery"
-            android:textSize="13dp"
-            app:backgroundTint="@color/blue" />
-    </LinearLayout>
+        android:layout_height="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/stroke"></TextView>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/imageview_sample" />
+        app:srcCompat="@drawable/plus_photo" />
 
-    <Switch
-        android:id="@+id/switch_public"
-        android:layout_width="wrap_content"
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/stroke"></TextView>
+
+    <TextView
+        android:id="@+id/textView_plus_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:text="공개  " />
+        android:layout_marginLeft="25dp"
+
+        android:fontFamily="@font/notosanskr_medium"
+        android:text="제목"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editText_Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
+        android:layout_marginLeft="20dp"
         android:layout_weight="1"
+        android:fontFamily="@font/notosanskr_light"
         android:gravity="top"
-        android:hint="제목"
         android:inputType="text"
-        android:textColor="@color/main_dark_blue"
+        android:textColor="#848484"
         android:textColorHint="@color/main_dark_blue"
         android:textSize="13dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/stroke"></TextView>
+
+    <TextView
+        android:id="@+id/textView_plus_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+
+        android:fontFamily="@font/notosanskr_medium"
+        android:text="내용"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editText_SimpleDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
+        android:layout_marginLeft="20dp"
         android:layout_weight="1"
+        android:fontFamily="@font/notosanskr_light"
         android:gravity="top"
-        android:hint="간단한 설명"
         android:inputType="text"
-        android:textColor="@color/main_dark_blue"
-        android:textColorHint="@color/main_dark_blue"
+        android:textColor="#848484"
         android:textSize="13dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/stroke"></TextView>
 
     <TextView
         android:id="@+id/textView_HashTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
         android:text="해시태그"
-        android:textColor="@color/main_dark_blue"
-        android:textSize="13dp"
+        android:textColor="#848484"
+        android:textSize="14dp"
         android:textStyle="bold" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp">
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:id="@+id/radioGroup"
             android:orientation="horizontal">
 
             <RadioButton
@@ -131,48 +193,81 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
                 android:text="바다"
-                android:textColor="@color/main_dark_blue" />
+                android:textColor="#848484" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
                 android:text="하늘"
-                android:textColor="@color/main_dark_blue" />
+                android:textColor="#848484" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="사람"
-                android:textColor="@color/main_dark_blue" />
+                android:fontFamily="@font/notosanskr_medium"
+                android:text="거리"
+                android:textColor="#848484" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
                 android:text="음식"
-                android:textColor="@color/main_dark_blue" />
+                android:textColor="#848484" />
 
             <RadioButton
                 android:id="@+id/radioButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
                 android:text="동물"
-                android:textColor="@color/main_dark_blue" />
+                android:textColor="#848484" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
                 android:text="명소"
-                android:textColor="@color/main_dark_blue" />
+                android:textColor="#848484" />
+
+            <RadioButton
+                android:id="@+id/radioButton_country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
+                android:text="시골"
+                android:textColor="#848484" />
+
+            <RadioButton
+                android:id="@+id/radioButton_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
+                android:text="도시"
+                android:textColor="#848484" />
+
+            <RadioButton
+                android:id="@+id/radioButton_nature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/notosanskr_medium"
+                android:text="자연"
+                android:textColor="#848484" />
         </RadioGroup>
     </HorizontalScrollView>
 
@@ -180,18 +275,20 @@
         android:id="@+id/editText_hashtag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:ems="10"
+        android:hint="해시태그를 입력하세요."
         android:inputType="text"
-        android:textColorHint="@color/main_dark_blue"
-        android:textSize="13dp"
-        android:textColor="@color/main_dark_blue"
-        android:hint="해시태그를 입력하세요." />
+        android:textColor="#848484"
+        android:textColorHint="#848484"
+        android:textSize="13dp" />
 
     <Button
         android:id="@+id/button_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/main_dark_blue"
-        android:text="등록" />
+        android:fontFamily="@font/notosanskr_light"
+        android:text="등록하기" />
 
 </LinearLayout>

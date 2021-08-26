@@ -1,16 +1,20 @@
 package com.example.sravel;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,6 +67,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     ArrayList<SnapShotDTO> similarList;
     PostItemAdapter adapter;
     public final String TAG = "viewPagerTest";
+    SnapShotDTO updateDto;
 
     public ViewPagerAdapter() {
 
@@ -95,9 +100,11 @@ public class ViewPagerAdapter extends PagerAdapter {
         TextView textView_time;
         TextView textView_location;
         TextView textView_hashtag;
+        TextView textView_heartCount = null;
         TextView textView_description;
         ImageButton heartButton = null;
         ImageButton mytripButton = null;
+        ImageButton button_option = null;
         //모델 연결
         setRetrofitInit();
 
@@ -108,11 +115,12 @@ public class ViewPagerAdapter extends PagerAdapter {
 
             textView = (TextView) view.findViewById(R.id.textview_title_detail);
             textView_time = view.findViewById(R.id.textview_time_detail);
-            textView_location = view.findViewById(R.id.textview_location_detail);
             textView_hashtag = view.findViewById(R.id.textview_hashtag_detail);
             textView_description = view.findViewById(R.id.textview_description_detail);
             heartButton = view.findViewById(R.id.button_heart);
             mytripButton = view.findViewById(R.id.button_my_trip);
+            button_option = view.findViewById(R.id.button_option);
+            textView_heartCount = view.findViewById(R.id.textView_heartCount);
 
 
             if (list != null) {
@@ -120,9 +128,9 @@ public class ViewPagerAdapter extends PagerAdapter {
                 String time = list.get(position).time;
                 Glide.with(mContext).load(list.get(position).imageUrl).into((ImageView) view.findViewById(R.id.imageview_detail));
                 textView_time.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
-                textView_location.setText(list.get(position).location);
                 textView_hashtag.setText(list.get(position).hashtag + list.get(position).hashtag2);
                 textView_description.setText(list.get(position).description);
+                textView_heartCount.setText(String.valueOf(list.get(position).heartCount));
                 id = list.get(position).id;
                 imageName = id + ".jpg";
                 callImageList();
@@ -130,17 +138,17 @@ public class ViewPagerAdapter extends PagerAdapter {
                 HashMap<String, Boolean> hm = list.get(position).getHeartCheck();
                 Log.d(TAG, "hm " + hm.toString());
                 if (hm.containsKey(uid)) {
-                    heartButton.setImageResource(R.drawable.fullheart);
+                    heartButton.setImageResource(R.drawable.like_full);
                 } else {
-                    heartButton.setImageResource(R.drawable.heart);
+                    heartButton.setImageResource(R.drawable.like);
                 }
 
                 HashMap<String, Boolean> hm2 = list.get(position).getMytripCheck();
                 Log.d(TAG, "hm2 " + hm2.toString());
                 if (hm2.containsKey(uid)) {
-                    mytripButton.setImageResource(R.drawable.fullheart);
+                    mytripButton.setImageResource(R.drawable.save_full);
                 } else {
-                    mytripButton.setImageResource(R.drawable.heart);
+                    mytripButton.setImageResource(R.drawable.save);
                 }
             }
 
@@ -168,9 +176,64 @@ public class ViewPagerAdapter extends PagerAdapter {
                 mContext.startActivity(intent);
             }
         });
+        button_option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final PopupMenu popupMenu = new PopupMenu(mContext,v);
+                popupMenu.getMenuInflater().inflate(R.menu.popup,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.action_menu1){
+                            Intent intent = new Intent(mContext, SnapShotPlus.class);
+                            intent.putExtra("update", updateDto);
+                            mContext.startActivity(intent);
+                        }else if (menuItem.getItemId() == R.id.action_menu2){
+                            Dialog dialog = new Dialog(mContext);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.dialog);
+                            dialog.show();
+                            Button button_yes = dialog.findViewById(R.id.yesBtn);
+                            Button button_no = dialog.findViewById(R.id.noBtn);
+                            button_no.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            button_yes.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    db.collection("snapshots").document(id)
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error deleting document", e);
+                                                }
+                                            });
+                                    mContext.startActivity(new Intent(mContext, MainActivity.class));
+                                }
+                            });
+                        }else {
+
+                        }
+
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         ImageButton finalMytripButton = mytripButton;
-        mytripButton.setOnClickListener(new View.OnClickListener() {
+        finalMytripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.runTransaction(new Transaction.Function<Void>() {
@@ -188,11 +251,11 @@ public class ViewPagerAdapter extends PagerAdapter {
                         if (snapShotDTO.mytripCheck.containsKey(uid)) {
                             hm.remove(uid);
                             newCount = snapShotDTO.mytripCount - 1;
-                            finalMytripButton.setImageResource(R.drawable.heart);
+                            finalMytripButton.setImageResource(R.drawable.save);
                         } else {
                             hm.put(uid, true);
                             newCount = snapShotDTO.mytripCount + 1;
-                            finalMytripButton.setImageResource(R.drawable.fullheart);
+                            finalMytripButton.setImageResource(R.drawable.save_full);
                         }
 
                         transaction.update(snapRef, "mytripCount", newCount);
@@ -218,7 +281,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         });
 
         ImageButton finalHeartButton = heartButton;
-        heartButton.setOnClickListener(new View.OnClickListener() {
+        TextView finalTextView_heartCount = textView_heartCount;
+        TextView finalTextView_heartCount1 = textView_heartCount;
+        finalHeartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.runTransaction(new Transaction.Function<Void>() {
@@ -236,11 +301,13 @@ public class ViewPagerAdapter extends PagerAdapter {
                         if (snapShotDTO.heartCheck.containsKey(uid)) {
                             hm.remove(uid);
                             newCount = snapShotDTO.heartCount - 1;
-                            finalHeartButton.setImageResource(R.drawable.heart);
+                            finalTextView_heartCount.setText(String.valueOf(newCount));
+                            finalHeartButton.setImageResource(R.drawable.like);
                         } else {
                             hm.put(uid, true);
                             newCount = snapShotDTO.heartCount + 1;
-                            finalHeartButton.setImageResource(R.drawable.fullheart);
+                            finalTextView_heartCount1.setText(String.valueOf(newCount));
+                            finalHeartButton.setImageResource(R.drawable.like_full);
                         }
 
                         transaction.update(snapRef, "heartCount", newCount);

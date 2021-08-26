@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,16 +22,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class MyPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    Button buttonLogout, buttonExit;
-    Button button_find_password;
-    Button button_mypost;
+    TextView buttonLogout, buttonExit;
+    TextView button_find_password;
+    TextView button_mypost;
     TextView textView_name;
     TextView textView_email;
-    Button button_mytrip;
+    TextView button_mytrip;
     FirebaseUser user;
     final String[] userInfo = new String[2];
     private FirebaseFirestore db;
@@ -52,11 +56,74 @@ public class MyPage extends AppCompatActivity {
         }
         textView_name = findViewById(R.id.textView_name_mypage);
         textView_email = findViewById(R.id.textView_email_mypage);
-        buttonLogout = (Button) findViewById(R.id.button_logout_mypage);
-        buttonExit = (Button) findViewById(R.id.button_remove_account_mypage);
+        buttonLogout = findViewById(R.id.button_logout_mypage);
+        buttonExit =  findViewById(R.id.button_remove_account_mypage);
         button_find_password = findViewById(R.id.button_passwordChange_mypage);
         button_mypost = findViewById(R.id.button_mypost_mypage);
         button_mytrip = findViewById(R.id.button_mytrip_mypage);
+
+        ImageView icon = new ImageView(this); // Create an icon
+        icon.setImageResource(R.drawable.sravel);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(icon)
+                .build();
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        ImageView itemIcon = new ImageView(this);
+        itemIcon.setImageResource(R.drawable.button_home);
+        SubActionButton button_home = itemBuilder.setContentView(itemIcon).build();
+
+        ImageView itemIcon2 = new ImageView(this);
+        itemIcon2.setImageResource(R.drawable.button_plus);
+        SubActionButton button_add = itemBuilder.setContentView(itemIcon2).build();
+
+        ImageView itemIcon3 = new ImageView(this);
+        itemIcon3.setImageResource(R.drawable.button_mypage);
+        SubActionButton button_user = itemBuilder.setContentView(itemIcon3).build();
+
+        ImageView itemIcon4 = new ImageView(this);
+        itemIcon4.setImageResource(R.drawable.button_zip);
+        SubActionButton button_zip = itemBuilder.setContentView(itemIcon4).build();
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(button_home)
+                .addSubActionView(button_zip)
+                .addSubActionView(button_user)
+                .addSubActionView(button_add)
+                .attachTo(actionButton)
+                .build();
+
+
+        button_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyPage.this, SnapShotPlus.class));
+            }
+        });
+
+        button_zip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPage.this, PostItems.class);
+                intent.putExtra("category", "popular");
+                startActivity(intent);
+            }
+        });
+
+        button_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyPage.this, MyPage.class));
+            }
+        });
+
+        button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyPage.this, MainActivity.class));
+            }
+        });
 
         db = FirebaseFirestore.getInstance();
         DocumentReference userRef = db.collection("Users").document(uid);
@@ -84,7 +151,7 @@ public class MyPage extends AppCompatActivity {
         button_mytrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyPage.this, PostItems.class);
+                Intent intent = new Intent(MyPage.this, MyPostItems.class);
                 intent.putExtra("category", "mytrip");
                 startActivity(intent);
             }
@@ -93,7 +160,7 @@ public class MyPage extends AppCompatActivity {
         button_mypost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyPage.this, PostItems.class);
+                Intent intent = new Intent(MyPage.this, MyPostItems.class);
                 intent.putExtra("category", "mypage");
                 startActivity(intent);
             }
