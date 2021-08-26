@@ -12,6 +12,8 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,8 +54,74 @@ public class PostItems extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
-        Button button_popular = findViewById(R.id.button_popular);
-        Button button_recent = findViewById(R.id.button_recent);
+        ImageView icon = new ImageView(this); // Create an icon
+        icon.setImageResource(R.drawable.sravel);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(icon)
+                .build();
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        ImageView itemIcon = new ImageView(this);
+        itemIcon.setImageResource(R.drawable.button_home);
+        SubActionButton button_home = itemBuilder.setContentView(itemIcon).build();
+
+        ImageView itemIcon2 = new ImageView(this);
+        itemIcon2.setImageResource(R.drawable.button_plus);
+        SubActionButton button_add = itemBuilder.setContentView(itemIcon2).build();
+
+        ImageView itemIcon3 = new ImageView(this);
+        itemIcon3.setImageResource(R.drawable.button_mypage);
+        SubActionButton button_user = itemBuilder.setContentView(itemIcon3).build();
+
+        ImageView itemIcon4 = new ImageView(this);
+        itemIcon4.setImageResource(R.drawable.button_zip);
+        SubActionButton button_zip = itemBuilder.setContentView(itemIcon4).build();
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(button_home)
+                .addSubActionView(button_zip)
+                .addSubActionView(button_user)
+                .addSubActionView(button_add)
+                .attachTo(actionButton)
+                .build();
+
+
+        button_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostItems.this, SnapShotPlus.class));
+            }
+        });
+
+        button_zip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostItems.this, PostItems.class);
+                intent.putExtra("category", "popular");
+                startActivity(intent);
+            }
+        });
+
+        button_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostItems.this, MyPage.class));
+            }
+        });
+
+        button_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostItems.this, MainActivity.class));
+            }
+        });
+
+
+        ImageButton button_popular = findViewById(R.id.button_popular);
+        ImageButton button_recent = findViewById(R.id.button_recent);
+        button_popular.setImageResource(R.drawable.popular_blue);
+        button_recent.setImageResource(R.drawable.recent_white);
 
         PostItemAdapter adapter = new PostItemAdapter(list);
         db = FirebaseFirestore.getInstance();
@@ -137,6 +208,8 @@ public class PostItems extends AppCompatActivity {
                         }
                     });
         } else {
+            button_popular.setImageResource(R.drawable.popular_white);
+            button_recent.setImageResource(R.drawable.recent_blue);
             db.collection("snapshots")
                     .orderBy("time",  Query.Direction.DESCENDING)
                     .get()
@@ -179,6 +252,8 @@ public class PostItems extends AppCompatActivity {
         button_popular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button_popular.setImageResource(R.drawable.popular_blue);
+                button_recent.setImageResource(R.drawable.recent_white);
                 Intent intent = new Intent(getApplicationContext(), PostItems.class);
                 intent.putExtra("category", "popular");
                 startActivity(intent);
@@ -188,6 +263,8 @@ public class PostItems extends AppCompatActivity {
         button_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button_popular.setImageResource(R.drawable.popular_white);
+                button_recent.setImageResource(R.drawable.recent_blue);
                 Intent intent = new Intent(getApplicationContext(), PostItems.class);
                 intent.putExtra("category", "recent");
                 startActivity(intent);

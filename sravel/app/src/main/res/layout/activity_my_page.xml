@@ -4,72 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".MyPage">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/button_x">
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/textView_now_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="145dp"
+            android:adjustViewBounds="true"
+            android:fontFamily="@font/notosanskr_medium"
+            android:scaleType="fitCenter"
+            android:text="마이페이지"
+            android:textColor="@color/main_dark_blue"></TextView>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView_name_mypage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:layout_marginTop="100dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:text="이름" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="80dp"
+        android:text="이름"
+        android:fontFamily="@font/notosanskr_medium"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView_email_mypage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:text="email" />
+        android:layout_marginLeft="30dp"
+        android:fontFamily="@font/notosanskr_medium"
+        android:text="email"
+        android:textColor="@color/black" />
 
 
-    <Button
+    <TextView
         android:id="@+id/button_mypost_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:layout_marginTop="30dp"
-        android:text="내가 작성한 여행지들" />
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/box_mypage"
+        android:paddingTop="10dp"
+        android:text="내가 작성한 여행지들"
+        android:fontFamily="@font/notosanskr_regular"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
-    <Button
+    <TextView
         android:id="@+id/button_mytrip_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:layout_marginTop="30dp"
-        android:text="내가 저장한 여행지들" />
-
-    <Button
-        android:id="@+id/button_logout_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:layout_marginTop="40dp"
-        android:text="로그아웃" />
-
-
-    <Button
-        android:id="@+id/button_passwordChange_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="비밀번호 변경" />
+        android:layout_marginRight="20dp"
+        android:background="@drawable/box_mypage"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="내가 저장한 여행지들"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/button_logout_mypage"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/box_mypage"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="로그아웃"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 
 
-    <Button
+    <TextView
+        android:id="@+id/button_passwordChange_mypage"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/box_mypage"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="비밀번호 변경"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+
+    <TextView
         android:id="@+id/button_remove_account_mypage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="회원탈퇴"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="200dp"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/box_mypage"
+        android:paddingTop="10dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="탈퇴"
+        android:textAlignment="center"
         android:textColor="#6E6D6D" />
 </LinearLayout>

@@ -11,8 +11,10 @@
         android:id="@+id/textView_present_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/main_dark_blue"
-        android:text="TextView" />
+        android:fontFamily="@font/notosanskr_medium"
+        android:text="광주광역시 북구 용봉동 147 "
+        android:textAlignment="center"
+        android:textColor="@color/main_dark_blue" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +29,8 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/main_dark_blue"
             android:textStyle="bold"
+            android:fontFamily="@font/notosanskr_medium"
+            android:layout_marginLeft="20dp"
             android:text="원하는 위치를 누르고 확인 버튼을 눌러주세요.">
 
         </TextView>
@@ -37,17 +41,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginLeft="30dp"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/main_dark_blue"
             android:text="확인"
-            android:textColor="@color/main_dark_blue"></Button>
+            android:textColor="@color/white"></Button>
     </LinearLayout>
     <SearchView
         android:id="@+id/searchview_location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/blue" />
+        android:layout_height="40dp"
+        android:layout_marginLeft="40.4dp"
+        android:layout_marginRight="40.4dp"
+        android:background="@drawable/box_search" />
 
     <fragment
         android:id="@+id/map2"

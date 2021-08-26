@@ -1,10 +1,13 @@
 package com.example.sravel;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -13,10 +16,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.GoogleMap;
@@ -64,8 +70,6 @@ public class DetailSnapShot extends AppCompatActivity {
     public String[] similarIdSet;
     Timer timer;
     TimerTask timerTask;
-    Button button_edit;
-    Button button_delete;
     SnapShotDTO updateDto;
 
     @Override
@@ -85,45 +89,68 @@ public class DetailSnapShot extends AppCompatActivity {
         }
 
         TextView textView_title = findViewById(R.id.textview_title_detail);
-        TextView textView_location = findViewById(R.id.textview_location_detail);
         TextView textView_description = findViewById(R.id.textview_description_detail);
         TextView textView_time = findViewById(R.id.textview_time_detail);
         TextView textView_hashtag = findViewById(R.id.textview_hashtag_detail);
         ImageView imageView = findViewById(R.id.imageview_detail);
         ImageButton heartButton = findViewById(R.id.button_heart);
         ImageButton mytripButton = findViewById(R.id.button_my_trip);
+        ImageButton button_option = findViewById(R.id.button_option);
+        TextView textView_heartCount = findViewById(R.id.textView_heartCount);
 
-        //수정, 삭제
-        button_edit = findViewById(R.id.button_edit);
-        button_delete = findViewById(R.id.button_delete);
-        button_edit.setOnClickListener(new View.OnClickListener() {
+        button_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailSnapShot.this, SnapShotPlus.class);
-                intent.putExtra("update", updateDto);
-               startActivity(intent);
-            }
-        });
+                final PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+                getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.action_menu1) {
+                            Intent intent = new Intent(DetailSnapShot.this, SnapShotPlus.class);
+                            intent.putExtra("update", updateDto);
+                            startActivity(intent);
+                        } else if (menuItem.getItemId() == R.id.action_menu2) {
+                            Dialog dialog = new Dialog(DetailSnapShot.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.dialog);
+                            dialog.show();
+                            Button button_yes = dialog.findViewById(R.id.yesBtn);
+                            Button button_no = dialog.findViewById(R.id.noBtn);
+                            button_no.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            button_yes.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    db.collection("snapshots").document(id)
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error deleting document", e);
+                                                }
+                                            });
+                                    startActivity(new Intent(DetailSnapShot.this, MainActivity.class));
+                                }
+                            });
+                        } else {
 
-        button_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.collection("snapshots").document(id)
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
-                startActivity(new Intent(DetailSnapShot.this, MainActivity.class));
+                        }
 
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
 
@@ -179,24 +206,24 @@ public class DetailSnapShot extends AppCompatActivity {
                                 Glide.with(getApplicationContext()).load(snapShotDTO.imageUrl).into(imageView);
                                 textView_title.setText(snapShotDTO.title);
                                 textView_time.setText(time.substring(0, 4) + "." + time.substring(4, 6) + "." + time.substring(6));
-                                textView_location.setText(snapShotDTO.location);
-                                textView_hashtag.setText( snapShotDTO.hashtag + snapShotDTO.hashtag2);
+                                textView_hashtag.setText(snapShotDTO.hashtag + snapShotDTO.hashtag2);
                                 textView_description.setText(snapShotDTO.description);
+                                textView_heartCount.setText(String.valueOf(snapShotDTO.heartCount));
                                 id = snapShotDTO.id;
                                 imageName = id + ".jpg";
                                 Log.d(TAG, id);
                                 callImageList();
 
                                 if (snapShotDTO.heartCheck.containsKey(uid)) {
-                                    heartButton.setImageResource(R.drawable.fullheart);
+                                    heartButton.setImageResource(R.drawable.like_full);
                                 } else {
-                                    heartButton.setImageResource(R.drawable.heart);
+                                    heartButton.setImageResource(R.drawable.like);
                                 }
 
                                 if (snapShotDTO.mytripCheck.containsKey(uid)) {
-                                    mytripButton.setImageResource(R.drawable.fullheart);
+                                    mytripButton.setImageResource(R.drawable.save_full);
                                 } else {
-                                    mytripButton.setImageResource(R.drawable.heart);
+                                    mytripButton.setImageResource(R.drawable.save);
                                 }
                             }
                         } else {
@@ -243,11 +270,11 @@ public class DetailSnapShot extends AppCompatActivity {
                         if (snapShotDTO.mytripCheck.containsKey(uid)) {
                             hm.remove(uid);
                             newCount = snapShotDTO.mytripCount - 1;
-                            mytripButton.setImageResource(R.drawable.heart);
+                            mytripButton.setImageResource(R.drawable.save);
                         } else {
                             hm.put(uid, true);
                             newCount = snapShotDTO.mytripCount + 1;
-                            mytripButton.setImageResource(R.drawable.fullheart);
+                            mytripButton.setImageResource(R.drawable.save_full);
                         }
 
                         transaction.update(snapRef, "mytripCount", newCount);
@@ -290,11 +317,13 @@ public class DetailSnapShot extends AppCompatActivity {
                         if (snapShotDTO.heartCheck.containsKey(uid)) {
                             hm.remove(uid);
                             newCount = snapShotDTO.heartCount - 1;
-                            heartButton.setImageResource(R.drawable.heart);
+                            textView_heartCount.setText(String.valueOf(newCount));
+                            heartButton.setImageResource(R.drawable.like);
                         } else {
                             hm.put(uid, true);
                             newCount = snapShotDTO.heartCount + 1;
-                            heartButton.setImageResource(R.drawable.fullheart);
+                            textView_heartCount.setText(String.valueOf(newCount));
+                            heartButton.setImageResource(R.drawable.like_full);
                         }
 
                         transaction.update(snapRef, "heartCount", newCount);

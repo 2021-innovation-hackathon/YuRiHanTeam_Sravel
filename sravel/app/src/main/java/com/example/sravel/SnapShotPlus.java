@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -98,15 +99,16 @@ public class SnapShotPlus extends AppCompatActivity {
             uid = user.getUid();
         }
         Button button_add = findViewById(R.id.button_add);
-        Button button_camera = findViewById(R.id.button_camera);
-        Button button_gallery = findViewById(R.id.button_gallery);
+        ImageButton button_camera = findViewById(R.id.button_camera);
+        ImageButton button_gallery = findViewById(R.id.button_gallery);
         Button button_map = findViewById(R.id.button_map);
         EditText editText_title = findViewById(R.id.editText_Title);
         EditText editText_description = findViewById(R.id.editText_SimpleDescription);
-        EditText editText_location = findViewById(R.id.editText_location);
         EditText editText_hashtag = findViewById(R.id.editText_hashtag);
         ImageView imageView = findViewById(R.id.imageView);
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        button_camera.setImageResource(R.drawable.camera);
+        button_gallery.setImageResource(R.drawable.gallery);
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -114,7 +116,7 @@ public class SnapShotPlus extends AppCompatActivity {
             longitude = intent.getExtras().getDouble("longitude");
             Log.d(TAG, "위도 " + latitude + " 경도" + longitude);
         }
-        if (intent.getExtras().getParcelable("update") != null) {
+        if (intent.getExtras() != null && intent.getExtras().getParcelable("update") != null) {
             updateCheck = true;
             updateDto = intent.getExtras().getParcelable("update");
             longitude = updateDto.longitude;
@@ -136,13 +138,19 @@ public class SnapShotPlus extends AppCompatActivity {
                 } else if (checkedId == R.id.radioButton2) {
                     hashtag = "#하늘";
                 } else if (checkedId == R.id.radioButton3) {
-                    hashtag = "#사람";
+                    hashtag = "#거리";
                 } else if (checkedId == R.id.radioButton4) {
                     hashtag = "#음식";
                 } else if (checkedId == R.id.radioButton5) {
                     hashtag = "#동물";
-                } else {
+                } else if(checkedId == R.id.radioButton6){
                     hashtag = "#명소";
+                }else if(checkedId == R.id.radioButton_city){
+                    hashtag = "#도시";
+                }else if(checkedId == R.id.radioButton_nature){
+                    hashtag = "#자연";
+                }else if(checkedId == R.id.radioButton_country){
+                    hashtag = "#시골";
                 }
             }
         });
@@ -237,7 +245,6 @@ public class SnapShotPlus extends AppCompatActivity {
             public void onClick(View v) {
                 title = editText_title.getText().toString();
                 description = editText_description.getText().toString();
-                location = editText_location.getText().toString();
                 hashtag2 = editText_hashtag.getText().toString();
                 Toast.makeText(getApplicationContext(), "여행지가 등록되었습니다.", Toast.LENGTH_LONG).show();
                 if (updateCheck) {
@@ -282,9 +289,7 @@ public class SnapShotPlus extends AppCompatActivity {
                 Log.e(TAG, ex.getMessage());
             }
         });
-
     }
-
 
     private void tedPermission() {
         PermissionListener permissionListener = new PermissionListener() {

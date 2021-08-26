@@ -11,4 +11,5 @@
     <color name = "blue"> #7FC4FD</color>
     <color name = "mid_blue">#BCE0FD</color>
     <color name = "light_blue">#F1F9FF</color>
+    <color name = "searchh_color"> #212121</color>
 </resources>

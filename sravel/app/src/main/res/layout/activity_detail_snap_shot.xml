@@ -11,7 +11,45 @@
         android:background="@color/white"
         android:orientation="vertical"
         tools:context=".DetailSnapShot">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/button_x">
+            </ImageButton>
+            <TextView
+                android:id="@+id/textView_now_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskr_medium"
+                android:layout_marginLeft="140dp"
+                android:text="자세히 보기"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/main_dark_blue" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
+            <ImageButton
+                android:id="@+id/button_option"
+                android:layout_width="6dp"
+                android:layout_height="22dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="12dp"
+               android:gravity="right"
+                android:adjustViewBounds="true"
+                android:background="@drawable/option" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageview_detail"
@@ -27,27 +65,6 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue"
-                android:text="수정" />
-
-            <Button
-                android:id="@+id/button_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue"
-                android:text="삭제" />
-
-            <TextView
-                android:id="@+id/textview_location_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="위치"
-                android:textColor="@color/main_dark_blue"></TextView>
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -58,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:fontFamily="@font/notosanskr_regular"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/main_dark_blue"></TextView>
 
@@ -65,70 +83,93 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_marginTop="10dp"
+            android:background="@color/white"
             android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textview_title_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/main_dark_blue"
-                    android:textSize="20dp"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/textview_description_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/main_dark_blue"></TextView>
-            </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
+            <TextView
+                android:id="@+id/textView_heartCount"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:text="n"
+                android:paddingRight="5dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/blank_like_number"
+                android:textColor="@color/main_dark_blue" />
+
+            <ImageButton
+                android:id="@+id/button_heart"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true"
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"></ImageButton>
 
             <ImageButton
                 android:id="@+id/button_my_trip"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
+                android:layout_marginTop="16dp"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
                 android:scaleType="fitCenter"></ImageButton>
 
-            <ImageButton
-                android:id="@+id/button_heart"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:adjustViewBounds="true"
-                android:backgroundTint="@color/white"
-                android:scaleType="fitCenter"></ImageButton>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_title_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskr_medium"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/textview_description_detail"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/notosanskr_light"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"></TextView>
         </LinearLayout>
 
         <TextView
             android:id="@+id/textview_hashtag_detail"
+            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/main_dark_blue"></TextView>
+            android:fontFamily="@font/notosanskr_regular"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"></TextView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:text="비슷한 곳 더 보기"
+            android:fontFamily="@font/notosanskr_regular"
             android:textColor="@color/main_dark_blue"
             android:textStyle="bold">
 
@@ -137,7 +178,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_similar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="720dp"
             android:scrollbars="vertical" />
 
     </LinearLayout>
