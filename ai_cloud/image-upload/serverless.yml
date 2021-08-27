@@ -1,0 +1,15 @@
+service: serverless-image-upload-lambda-docker
+
+provider:
+  name: aws # provider
+  region: ap-northeast-2 # aws region
+  memorySize: 5120 # optional, in MB, default is 1024
+  timeout: 60 # optional, in seconds, default is 6
+
+functions:
+  image-upload:
+    image: 891511646143.dkr.ecr.eu-central-1.amazonaws.com/bert-lambda:latest #ecr url
+    events:
+      - http:
+          path: qa # http path
+          method: post # http method#
