@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Register">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/button_x">
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/textView_now_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="150dp"
+            android:adjustViewBounds="true"
+            android:fontFamily="@font/notosanskr_medium"
+            android:scaleType="fitCenter"
+            android:text="회원가입"
+            android:textColor="@color/main_dark_blue"></TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_signup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="70dp"
+        android:text="이메일"
+        android:fontFamily="@font/notosanskr_regular"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:layout_marginLeft="25dp"
+        android:background="@drawable/box_join"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/main_dark_blue" />
+
+
+    <TextView
+        android:id="@+id/textView_signup_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="이름"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_email_signup"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="25dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:background="@drawable/box_join"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/main_dark_blue"
+        android:textColorHint="@color/main_dark_blue" />
+
+    <TextView
+        android:id="@+id/textView_signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:text="비밀번호"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_password_signup"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="25dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:background="@drawable/box_join"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@color/main_dark_blue"
+        android:textColorHint="@color/main_dark_blue" />
+
+
+    <TextView
+        android:id="@+id/textView_signup_password_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:text="비밀번호 확인"
+        android:fontFamily="@font/notosanskr_regular"
+        android:textColor="#848484"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_passwordCheck_signup"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="25dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:background="@drawable/box_join"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@color/main_dark_blue" />
+
+    <ImageButton
+        android:id="@+id/button_signup"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/box_join_1"
+        android:layout_marginLeft="23dp"
+        android:text="회원가입"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

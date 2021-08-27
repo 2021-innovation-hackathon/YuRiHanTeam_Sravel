@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1480"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="98"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="98">
+
+        <TextView
+            android:id="@+id/textView_now_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanskr_medium"
+            android:text="광주광역시 북구 용봉동 147 "
+            android:textAlignment="center"
+            android:textColor="@color/main_dark_blue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="190"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="200.2">
+
+        <SearchView
+            android:id="@+id/searchview"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40.4dp"
+            android:layout_marginRight="40.4dp"
+            android:background="@drawable/box_search" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="11dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/button_food"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/hashtag_food"
+                    android:layout_marginLeft="10dp"
+                    android:padding="0dp"
+                    android:text="#음식" />
+
+                <ImageButton
+                    android:id="@+id/button_sky"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_sky" />
+
+                <ImageButton
+                    android:id="@+id/button_city"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_building" />
+
+                <ImageButton
+                    android:id="@+id/button_animal"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_animal" />
+
+                <ImageButton
+                    android:id="@+id/button_place"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_landmark" />
+
+                <ImageButton
+                    android:id="@+id/button_ocean"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_sea"
+                    android:text="#바다" />
+
+                <ImageButton
+                    android:id="@+id/button_street"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_street"
+                    android:text="#바다" />
+
+                <ImageButton
+                    android:id="@+id/button_country_image"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_country" />
+                <ImageButton
+                    android:id="@+id/button_nature_image"
+                    android:layout_width="70dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/hashtag_nature" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1182.7"
+        android:weightSum="1182.7">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MapsActivity" />
+    </LinearLayout>
+
+
+</LinearLayout>

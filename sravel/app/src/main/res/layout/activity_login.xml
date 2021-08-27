@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1480"
+    tools:context=".Login">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/button_x">
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/textView_now_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="150dp"
+            android:adjustViewBounds="true"
+            android:fontFamily="@font/notosanskr_medium"
+            android:scaleType="fitCenter"
+            android:text="로그인"
+            android:textColor="@color/main_dark_blue"></TextView>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editText_email"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/box_login_blank"
+        android:ems="10"
+        android:fontFamily="@font/notosanskr_regular"
+        android:hint="    이메일 주소"
+        android:inputType="textEmailAddress"
+        android:textColor="#1A1A1A"
+        android:textSize="15dp"
+        android:textColorHint="#D8D8D8" />
+
+    <EditText
+        android:id="@+id/editText_password"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:background="@drawable/box_login_blank"
+        android:ems="10"
+        android:textSize="15dp"
+        android:hint="    비밀번호"
+        android:inputType="textPassword"
+        android:textColor="#1A1A1A"
+        android:textColorHint="#D8D8D8" />
+
+    <ImageButton
+        android:id="@+id/button_login"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/box_login"
+        android:scaleType="fitCenter"
+        android:text="로그인"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_password_find"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:text="비밀번호 찾기"
+        android:fontFamily="@font/notosanskr_regular"
+        android:textStyle="bold"
+        android:textColor="#848484" />
+
+    <TextView
+        android:id="@+id/textView_signup"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="회원가입"
+        android:fontFamily="@font/notosanskr_regular"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="#848484" />
+
+</LinearLayout>
