@@ -77,8 +77,7 @@
 
 
 ## 시연 영상
-
-<iframe width="640" height="360" src="https://www.youtube.com/watch?v=FFyaVOEiEIU"></iframe>
+[![Sravel 시연 영상](http://img.youtube.com/vi/FFyaVOEiEIU/0.jpg)](https://www.youtube.com/watch?v=FFyaVOEiEIU)
 
 
 
