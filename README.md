@@ -19,6 +19,7 @@
 ### 기획 의도
 
 콘텐츠와 디지털 디바이스에 익숙한 **MZ 세대**는 SNS를 통해 일상을 자유롭게 기록하고 방문할 장소를 미리 확인합니다. 이동에 대한 제약으로 인해 여행을 쉽게 즐기지 못하는 **언택트 시대**에 여행과 사진을 좋아하는 MZ 세대가 **다양한 장소의 사진을 통해 일상부터 여행 경험을 공유하는 모바일 앱**을 제안합니다.
+<p align="center"><img src="https://user-images.githubusercontent.com/63575891/131217462-ff310134-f50c-4746-b789-c9b89727996a.png"></p>
 
 ### 프로젝트 설명
 
@@ -29,7 +30,7 @@
 <p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131208061-8f47620c-ee6c-4bb2-8f6c-6e66de742c0a.png"></p>
 
 
-<p align="center"><img width="80%" src="https://user-images.githubusercontent.com/63575891/131215972-602721a8-1312-4e05-87c5-3cb6a4981ec9.png"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/63575891/131217528-3f29137c-86bc-42b9-b606-907717a2074b.png"></p>
 
 ## 디자인 컨셉
 
@@ -41,37 +42,27 @@
 
 ### 지도 기반 메인 화면
 
-<p align="center"><img width="70%" src="https://user-images.githubusercontent.com/63575891/131208457-0720aefe-db0f-4150-bb56-da3eb1240a5d.png"></p>
-
-
+<p align="center"><img width="70%" src="https://user-images.githubusercontent.com/63575891/131217562-722659c3-c3d4-4d09-be22-47860032158e.png"></p>
 
 ### 해시태그 & 나라/지역명 검색
 
-<p align="center"><img width="70%" src="https://user-images.githubusercontent.com/63575891/131208488-a09f2803-eac0-4f12-a276-9c2efe7d7418.png"></p>
-
-
+<p align="center"><img width="70%" src="https://user-images.githubusercontent.com/63575891/131217576-49a0e7b1-4a85-4908-b52e-0e87a0e4cf3e.png"></p>
 
 ### 최신순/인기순 사진 조회
 
-<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131208511-f6064000-8733-4193-9344-fb3dfd160747.png"></p>
-
-
-
-### 위치 지정 & 사진 업로드
-
-<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131208540-1866b596-a50e-4473-8779-145f4e5fd421.png"></p>
-
-
+<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131217589-3223bc70-3edf-4230-b3a8-fd111eb54c10.png"></p>
 
 ### 사진별 상세 화면
 
-<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131208603-3220a49c-4190-4308-ab82-e995a031f487.png"></p>
+<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131217675-cb66f865-373c-4ada-b0f6-b979cbb4dd9b.png"></p>
 
+### 위치 지정 & 사진 업로드
 
+<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131217610-6900189e-03b8-4dd8-8a58-1b706d2c1547.png"></p>
 
 ### 로그인/회원가입 & 마이페이지
 
-<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131208657-e33e24fa-482a-4f68-b6fd-86d35b224fbb.png"></p>
+<p align="center"><img width="55%" src="https://user-images.githubusercontent.com/63575891/131217925-17d9bc91-17ba-4ad8-bf05-b43875c72ae7.png"></p>
 
 
 
